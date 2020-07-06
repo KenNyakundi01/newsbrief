@@ -5,3 +5,7 @@ An application that will help the user list and preview news articles from vario
 
 Python
 Flask
+
+# Author
+
+Ken Nyakundi
