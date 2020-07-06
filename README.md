@@ -4,6 +4,7 @@ An application that will help the user list and preview news articles from vario
 # Technologies used
 
 Python
+
 Flask
 
 # Author
