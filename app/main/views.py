@@ -1,114 +1,16 @@
-from flask import Flask, render_template
-from newsapi import NewsApiClient
+from flask import render_template,request,redirect,url_for
+from . import main
+#from requests import get_news, search_news
+from .forms import ReviewForm
+from ..models import Review
+#Review = review.Review
+    # Views
+#@main.route('/')
+#def index():
+@main.route('/news/<int:id>')
+def news(id):
+    news = get_news(id)
+    title = f'{news.title}'
+    reviews = Review.get_reviews(news.id)
+    return render_template('news.html',title = title,news = news,reviews = reviews)
 
-app = Flask(__name__)
-
-@app.route('/')
-def Index():
-    newsapi = NewsApiClient(api_key="f0ca0d322bd94d3f909cddde43099b2b")
-    topheadlines = newsapi.get_top_headlines(sources="abc-news")
-
-    articles = topheadlines['articles']
-
-    desc = []
-    news = []
-    img = []
-    url = []
-    publAt = []
-
-    for i in range(len(articles)):
-        myarticles = articles[i]
-
-        news.append(myarticles['title'])
-        desc.append(myarticles['description'])
-        img.append(myarticles['urlToImage'])
-        url.append(myarticles['url'])
-        publAt.append(myarticles['publishedAt'])
-        
-
-    mylist = zip(news, desc, img,url,publAt)
-
-    return render_template('index.html', context = mylist)
-@app.route('/bbc')
-def bbc():
-    newsapi = NewsApiClient(api_key="f0ca0d322bd94d3f909cddde43099b2b")
-    topheadlines = newsapi.get_top_headlines(sources="bbc-news")
-
-    articles = topheadlines['articles']
-
-    desc = []
-    news = []
-    img = []
-    url = []
-    publAt = []
-
-    for i in range(len(articles)):
-        myarticles = articles[i]
-
-        news.append(myarticles['title'])
-        desc.append(myarticles['description'])
-        img.append(myarticles['urlToImage'])
-        url.append(myarticles['url'])
-        publAt.append(myarticles['publishedAt'])
-
-    mylist = zip(news, desc, img,url,publAt)
-
-
-    return render_template('bbc.html', context = mylist)
-    
-@app.route('/fox')
-def fox():
-    newsapi = NewsApiClient(api_key="f0ca0d322bd94d3f909cddde43099b2b")
-    topheadlines = newsapi.get_top_headlines(sources="fox-news")
-
-    articles = topheadlines['articles']
-
-    desc = []
-    news = []
-    img = []
-    url = []
-    publAt = []
-
-    for i in range(len(articles)):
-        myarticles = articles[i]
-
-        news.append(myarticles['title'])
-        desc.append(myarticles['description'])
-        img.append(myarticles['urlToImage'])
-        url.append(myarticles['url'])
-        publAt.append(myarticles['publishedAt'])
-
-    mylist = zip(news, desc, img,url,publAt)
-
-
-    return render_template('fox.html', context = mylist)
-@app.route('/nbc')
-def nbc():
-    newsapi = NewsApiClient(api_key="f0ca0d322bd94d3f909cddde43099b2b")
-    topheadlines = newsapi.get_top_headlines(sources="nbc-news")
-
-    articles = topheadlines['articles']
-
-    desc = []
-    news = []
-    img = []
-    url = []
-    publAt = []
-
-    for i in range(len(articles)):
-        myarticles = articles[i]
-
-        news.append(myarticles['title'])
-        desc.append(myarticles['description'])
-        img.append(myarticles['urlToImage'])
-        url.append(myarticles['url'])
-        publAt.append(myarticles['publishedAt'])
-
-    mylist = zip(news, desc, img,url,publAt)
-
-
-    return render_template('nbc.html', context = mylist)
-    
-if __name__ == "__main__":
-    app.run(debug=True)
-    app.run
