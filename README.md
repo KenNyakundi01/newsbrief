@@ -10,6 +10,22 @@ Python
 
 Flask
 
+Html
+
+Bootstrap
+
+## Setup instructions
+
+Clone from Github to your computer 
+
+Get into the folder and open the terminal
+
+Activate the virtual environment and install Flask
+
 ## Author
 
 Ken Nyakundi
+
+## License
+
+This project is licensed under the MIT License.
